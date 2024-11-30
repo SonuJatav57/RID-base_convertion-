@@ -1,0 +1,115 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Base Conversion</title>
+    <style>
+div{
+    border-radius: 20px;
+    height: 400px;
+    width: 500px;
+    border: 5px solid black;
+background-color: rgb(23, 123, 123);
+}
+h1{
+   text-align: center;
+}
+button{
+    margin-left: 180px;
+}
+button:hover{
+    background-color: blue;
+}
+    </style>
+</head>
+<body>
+    <div>
+        <h1>RID BASE CONVERSION</h1>
+    <label>Number :-</label>
+    <input id="d1" type="text"><br><br>
+    
+    <label>From</label><br>
+    <select id="from">
+        <option value="bin">Binary Number</option>
+        <option value="octal">Octal Number</option>
+        <option value="decimal">Decimal Number</option>
+        <option value="hexadecimal">Hexadecimal Number</option>
+    </select>
+
+    <label>To</label>
+    <select id="to">
+        <option value="binary">Binary Number</option>
+        <option value="octal">Octal Number</option>
+        <option value="decimal">Decimal Number</option>
+        <option value="hexadecimal">Hexadecimal Number</option>
+    </select>
+    <br><br>
+    <button type="button" onclick="con()">Convert</button>
+    <br><br>
+    
+    <label>Result</label>
+    <input id="res" type="text" readonly><br><br>
+</div>
+    <script>
+        function con() {
+            let num = document.getElementById("d1").value.trim();
+            let fromBase = document.getElementById("from").value;
+            let toBase = document.getElementById("to").value;
+            let result = '';
+
+            // Check if the input is empty
+            if (num === "") {
+                document.getElementById("res").value = "Please enter a number.";
+                return;
+            }
+
+            // Validate input based on selected 'From' base
+            let decimalNumber;
+            if (fromBase === "bin") {
+                // Ensure the number is a valid binary number
+                if (!/^[01]+$/.test(num)) {
+                    document.getElementById("res").value = "Invalid Binary Number.";
+                    return;
+                }
+                decimalNumber = parseInt(num, 2);
+            } else if (fromBase === "octal") {
+                // Ensure the number is a valid octal number
+                if (!/^[0-7]+$/.test(num)) {
+                    document.getElementById("res").value = "Invalid Octal Number.";
+                    return;
+                }
+                decimalNumber = parseInt(num, 8);
+            } else if (fromBase === "decimal") {
+                // Ensure the number is a valid decimal number
+                if (!/^\d+$/.test(num)) {
+                    document.getElementById("res").value = "Invalid Decimal Number.";
+                    return;
+                }
+                decimalNumber = parseInt(num, 10);
+            } else if (fromBase === "hexadecimal") {
+                // Ensure the number is a valid hexadecimal number
+                if (!/^[0-9A-Fa-f]+$/.test(num)) {
+                    document.getElementById("res").value = "Invalid Hexadecimal Number.";
+                    return;
+                }
+                decimalNumber = parseInt(num, 16);
+            }
+
+            // Convert decimal number to the target base
+            if (toBase === "binary") {
+                result = decimalNumber.toString(2);
+            } else if (toBase === "octal") {
+                result = decimalNumber.toString(8);
+            } else if (toBase === "decimal") {
+                result = decimalNumber.toString(10);
+            } else if (toBase === "hexadecimal") {
+                result = decimalNumber.toString(16);
+            }
+
+            // Display the result
+            document.getElementById("res").value = result.toUpperCase();
+        }
+    </script>
+</body>
+</html>
